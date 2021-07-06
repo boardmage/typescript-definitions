@@ -122,6 +122,7 @@ fn do_derive_typescript_definition(input: QuoteT) -> QuoteT {
 
     let mut q = quote! {
 
+        use wasm_bindgen::prelude::*;
         #[wasm_bindgen(typescript_custom_section)]
         pub const #export_ident : &'static str = #export_string;
     };
@@ -129,6 +130,7 @@ fn do_derive_typescript_definition(input: QuoteT) -> QuoteT {
     if let Some(ref verify) = parsed.wasm_verify() {
         let export_ident = ident_from_str(&format!("TS_EXPORT_VERIFY_{}", name));
         q.extend(quote!(
+            use wasm_bindgen::prelude::*;
             #[wasm_bindgen(typescript_custom_section)]
             pub const #export_ident : &'static str = #verify;
         ))
